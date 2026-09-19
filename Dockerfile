@@ -1,7 +1,5 @@
 FROM php:8.0
 
-RUN apt-get update && apt-get install -y libzip-dev libpq-dev
-RUN docker-php-ext-install zip
-RUN docker-php-ext-install pdo_pgsql
+ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN install-php-extensions zip pdo_pgsql @composer
